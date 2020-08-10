@@ -3,10 +3,39 @@
     <head>
         <title>Budge</title>
         <link rel="icon" href="lib/bitmaps/icon.png">
-        <style>row { display: block; line-height: 0; } </style>
+        <style>row { display: block; line-height: 0; } dt { font-weight: bold; }</style>
     </head>
     <body>
         <span id="name"></span>
+        <div id="board"></div>
+        <p>
+            Complete each screen by getting the monsters to bump into each
+            other, using the objects scattered around to alter their paths
+            Beware, touching a monster is fatal and certain objects can
+            kill you too!
+        </p>
+        <h3>Characters</h3>
+        <p>
+            <dl>
+                <dt><img src="lib/bitmaps/player.png"> Budge</dt><dd>Player character</dd>
+                <dt><img src="lib/bitmaps/squashy.png"> Fluffy Monster</dt><dd>Wanders about aimlessly</dd>
+                <dt><img src="lib/bitmaps/spiky.png"> Spiky Monster</dt><dd>Chases you stupidly</dd>
+                <dt><img src="lib/bitmaps/blocks/block.png"> Wall</dt><dd>Nothing goes through</dd>
+                <dt><img src="lib/bitmaps/gate.png"> Gate</dt><dd>Can be opened but not shut</dd>
+                <dt><img src="lib/bitmaps/disk.png"> Disc</dt><dd>Can be pushed about</dd>
+                <dt><img src="lib/bitmaps/freeze.png"> Freeze Pill</dt><dd>Pick up to temporarily freeze the monsters</dd>
+                <dt><img src="lib/bitmaps/killer.png"> Killer</dt><dd>Don't walk into these!</dd>
+            </dl>
+        </p>
+        <h3>Controls</h3>
+        <p>
+            <dl>
+                <dt>Arrows</dt><dd>Move Budge</dd>
+                <dt>P</dt><dd>Pause/Unpause</dd>
+                <dt>Escape</dt><dd>Lose a Life</dd>
+                <dt>Q</dt><dd>End game</dd>
+            </dl>
+        </p>
         <script src="budge.js"></script>
     </body>
 </html>

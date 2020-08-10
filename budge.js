@@ -382,7 +382,7 @@ function update() {
                 rowEl.appendChild(imgEl);
                 rowImgs.push(imgEl);
             }
-            document.body.appendChild(rowEl);
+            document.getElementById('board').appendChild(rowEl);
             imgs.push(rowImgs);
         }
     }
@@ -417,14 +417,14 @@ function translate(pos, offset, nowrap) {
             offset = {row: 1, col: 0};
             break;
     }
-    // TODO: This doesn't work for negative numbers
+    // This doesn't work for large negative numbers
     var target = {
         row: pos.row + offset.row,
         col: pos.col + offset.col
     };
     if (!nowrap) {
-        target.row = target.row % 15;
-        target.col = target.col % tiles[target.row].length;
+        target.row = (target.row + 15) % 15;
+        target.col = (target.col + tiles[target.row].length) % tiles[target.row].length;
     }
     return target;
 }
@@ -447,9 +447,26 @@ function handleKeyDown(e) {
         case 40: // Down
             dir = 'd';
             break;
+        case 27: // Escape
+            loadLevel(curLevel);
+            return;
+        case 81: // Q
+            // TODO: Reset lives
+            loadLevel(0);
+            return;
+        case 80: // P
+            pause = !pause;
+            return;
+        default:
+            return;
     }
-    var target = dir ? translate(cur, dir) : null;
+    if (pause) {
+        return;
+    }
+    var target = translate(cur, dir);
     if (target) {
+        e.preventDefault();
+        e.stopPropagation();
         switch (tiles[target.row][target.col]) {
             case ' ':
             case '+':
@@ -514,7 +531,7 @@ function moveMonsters() {
     var fluffyCur = getPos('@');
     var spikyCur = getPos('*');
     var playerCur = getPos('P');
-    if (playerCur == null) {
+    if (playerCur == null || pause) {
         return;
     }
     var fluffyTarget = fluffyCur == null ? null : calculateFluffyTargetAndUpdateDir(fluffyCur);
@@ -556,7 +573,6 @@ function checkLevelOver() {
     }
 }
 
-// Add favicon (same as icon used for game window)
 // TODO: Add border around game board
 // TODO: Make sure last level with hidden tile works right
 // TODO: Add touch screen support
